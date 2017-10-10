@@ -11,7 +11,7 @@ function Hello({greeting='Hello', firstName}) {
 
 Hello.propTypes = {
     greeting: PropTypes.string,
-    firstName: PropTypes.string
+    firstName: PropTypes.string.isRequired
 };
 
 export default Hello;
