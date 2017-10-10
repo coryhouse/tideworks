@@ -2,15 +2,21 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 class User extends React.Component {
+    handleUserClick = (event) => {
+        event.preventDefault();
+        this.props.onUserClick(this.props.user.id);
+    }
+
     render() {
-        const {firstName, lastName, id} = this.props.user;
-        const {deleteUser} = this.props;
+        const {deleteUser, user} = this.props;
+        const {firstName, lastName, id} = user;
 
         return (
             <div>
                 <button onClick={() => deleteUser(id)}>Delete</button>
-                First name: {firstName}
-                Last name: {lastName}
+                <a href="" onClick={this.handleUserClick}>
+                    {firstName} {lastName}
+                </a>
             </div>
         )
     }
@@ -18,7 +24,8 @@ class User extends React.Component {
 
 User.propTypes = {
     user: PropTypes.object.isRequired,
-    deleteUser: PropTypes.func.isRequired
+    deleteUser: PropTypes.func.isRequired,
+    onUserClick: PropTypes.func.isRequired
 };
 
 export default User;

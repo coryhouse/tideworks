@@ -1,18 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const emptyUser = {
-    id: null,
-    firstName: '',
-    lastName: '' 
-}
-
-class EditUser extends React.Component {
+class ManageUser extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             user: props.user
         };
+    }
+
+    componentWillReceiveProps(nextProps) {
+        this.setState({user: nextProps.user});
     }
 
     handleChange = (event) => {
@@ -24,13 +22,13 @@ class EditUser extends React.Component {
     handleSaveClick = (event) => {
         event.preventDefault();
         this.props.save(this.state.user);
-        this.setState({user: Object.assign({}, emptyUser)});
     }
 
     render() {
-        const {firstName, lastName} = this.state.user;
+        const {id, firstName, lastName} = this.state.user;
         return (
             <form>
+                <h1>{id ? 'Edit' : 'Add'} user</h1>
                 First Name: <input type="text" name="firstName" onChange={this.handleChange} value={firstName} /><br/>
                 Last Name: <input type="text" name="lastName" onChange={this.handleChange} value={lastName} /><br/>
                 <input type="submit" value="Save" onClick={this.handleSaveClick}/>
@@ -39,13 +37,9 @@ class EditUser extends React.Component {
     }
 }
 
-EditUser.propTypes = {
-    user: PropTypes.object,
+ManageUser.propTypes = {
+    user: PropTypes.object.isRequired,
     save: PropTypes.func.isRequired
 };
 
-EditUser.defaultProps = {
-    user: emptyUser
-}
-
-export default EditUser;
+export default ManageUser;

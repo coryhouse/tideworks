@@ -1,13 +1,19 @@
 import React, { Component } from 'react';
-import HelloWorld from './HelloWorld';
-import ContactForm from './ContactForm';
 import User from './User';
-import EditUser from './EditUser';
+import ManageUser from './ManageUser';
 import './App.css';
 
 class App extends Component {
   constructor(props) {
     super(props);
+
+    // Not in state since this never changes.
+    this.emptyUser = {
+      id: null,
+      firstName: '',
+      lastName: '' 
+    }
+
     this.state = {
       users: [
         { 
@@ -25,31 +31,58 @@ class App extends Component {
           firstName: 'Jonny',
           lastName: 'Ives'
         }
-      ]
+      ],
+      selectedUser: this.emptyUser,
+      showManageUser: false
     }
   }
 
   deleteUser = (id) => {
     const users = this.state.users.filter(user => user.id !== id);
-    this.setState({users});
+    this.setState({users, showManageUser: false});
   }
 
   save = (user) => {
-    if (!user.id) {
+    let users = [];
+    if (user.id) {
+      users = [
+        ...this.state.users.filter( u => u.id !== user.id), 
+        user
+      ];
+    } else {
       user.id = Math.random();
-    };
-    const users = [...this.state.users, user];
-    this.setState({users});
+      users = [...this.state.users, user];
+    }
+    this.setState({users, selectedUser: this.emptyUser, showManageUser: false});
+  }
+
+  handleUserClick = (id) => {
+    const selectedUser = this.state.users.find(u => u.id === id);
+    this.setState({ selectedUser, showManageUser: true });
+  }
+
+  handleAddUserClick = () => {
+    this.setState({selectedUser: this.emptyUser, showManageUser: true});
   }
 
   render() {
+    const {selectedUser, showManageUser} = this.state;
+
     return (
       <div className="App">
-        <HelloWorld age={5} />
-        <ContactForm/>
-        { this.state.users.map( user => <User key={user.id} user={user} deleteUser={this.deleteUser} />) }
-        <h1>Add user</h1>
-        <EditUser save={this.save} />
+        { this.state.users.map( user => {
+          return (
+            <User 
+              key={user.id} 
+              user={user} 
+              onUserClick={this.handleUserClick}
+              deleteUser={this.deleteUser} />) 
+          })
+        }
+
+        <button onClick={this.handleAddUserClick}>Add User</button>
+
+        {showManageUser && <ManageUser user={selectedUser} save={this.save} />}
       </div>
     );
   }
