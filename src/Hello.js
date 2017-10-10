@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-class HelloWorld extends React.Component {
+class Hello extends React.Component {
     render() {
         return (
             <div>
@@ -11,14 +11,13 @@ class HelloWorld extends React.Component {
     }
 }
 
-HelloWorld.propTypes = {
+Hello.propTypes = {
     greeting: PropTypes.string,
     firstName: PropTypes.string
 };
 
-HelloWorld.defaultProps = {
-    greeting: 'Hello',
-    firstName: 'world'
+Hello.defaultProps = {
+    greeting: 'Hello'
 };
 
-export default HelloWorld;
+export default Hello;
