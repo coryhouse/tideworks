@@ -5,18 +5,19 @@ class HelloWorld extends React.Component {
     render() {
         return (
             <div>
-                Hello {this.props.firstName}
+                {this.props.greeting} {this.props.firstName}
             </div>
         )
     }
 }
 
 HelloWorld.propTypes = {
-    firstName: PropTypes.string.isRequired,
-    age: PropTypes.number
+    greeting: PropTypes.string,
+    firstName: PropTypes.string
 };
 
 HelloWorld.defaultProps = {
+    greeting: 'Hello',
     firstName: 'world'
 };
 
