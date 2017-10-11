@@ -1,4 +1,8 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import {connect} from 'react-redux';
+import {bindActionCreators} from 'redux';
+import * as actions from '../actions/userActions';
 import User from './User';
 import ManageUser from './ManageUser';
 import './App.css';
@@ -15,49 +19,23 @@ class App extends Component {
     }
 
     this.state = {
-      users: [
-        { 
-          id: 1,
-          firstName: 'Cory',
-          lastName: 'House'
-        },
-        { 
-          id: 2,
-          firstName: 'Bobby',
-          lastName: 'Tables'
-        },
-        { 
-          id: 3,
-          firstName: 'Jonny',
-          lastName: 'Ives'
-        }
-      ],
       selectedUser: this.emptyUser,
       showManageUser: false
     }
   }
 
   deleteUser = (id) => {
-    const users = this.state.users.filter(user => user.id !== id);
-    this.setState({users, showManageUser: false});
+    this.props.actions.deleteUser(id);
+    this.setState({showManageUser: false});
   }
 
   save = (user) => {
-    let users = [];
-    if (user.id) {
-      users = [
-        ...this.state.users.filter( u => u.id !== user.id), 
-        user
-      ];
-    } else {
-      user.id = Math.random();
-      users = [...this.state.users, user];
-    }
-    this.setState({users, selectedUser: this.emptyUser, showManageUser: false});
+    this.props.actions.saveUser(user);
+    this.setState({selectedUser: this.emptyUser, showManageUser: false});
   }
 
   handleUserClick = (id) => {
-    const selectedUser = this.state.users.find(u => u.id === id);
+    const selectedUser = this.props.users.find(u => u.id === id);
     this.setState({ selectedUser, showManageUser: true });
   }
 
@@ -67,10 +45,11 @@ class App extends Component {
 
   render() {
     const {selectedUser, showManageUser} = this.state;
+    const {users} = this.props;
 
     return (
       <div className="App">
-        { this.state.users.map( user => {
+        { users.map( user => {
           return (
             <User 
               key={user.id} 
@@ -88,4 +67,21 @@ class App extends Component {
   }
 }
 
-export default App;
+App.propTypes = {
+  users: PropTypes.array.isRequired,
+  actions: PropTypes.object.isRequired
+}
+
+function mapStateToProps(state) {
+  return {
+    users: state.users
+  };
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    actions: bindActionCreators(actions, dispatch)
+  };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);
