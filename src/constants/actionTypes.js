@@ -1,2 +1,2 @@
-export const SAVE_USER = 'SAVE_USER';
-export const DELETE_USER = 'DELETE_USER';
+export const SAVE_USER_SUCCESS = "SAVE_USER_SUCCESS";
+export const DELETE_USER_SUCCESS = "DELETE_USER_SUCCESS";

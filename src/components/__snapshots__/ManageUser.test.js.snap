@@ -1,0 +1,65 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should render add header when empty user is provided 1`] = `
+<form>
+  <h1>
+    Add
+     user
+  </h1>
+  First Name:
+   
+  <input
+    name="firstName"
+    onChange={[Function]}
+    type="text"
+    value={undefined}
+  />
+  <br />
+  Last Name:
+   
+  <input
+    name="lastName"
+    onChange={[Function]}
+    type="text"
+    value={null}
+  />
+  <br />
+  <input
+    onClick={[Function]}
+    type="submit"
+    value="Save"
+  />
+</form>
+`;
+
+exports[`should render edit header when existing user is provided 1`] = `
+<form>
+  <h1>
+    Edit
+     user
+  </h1>
+  First Name:
+   
+  <input
+    name="firstName"
+    onChange={[Function]}
+    type="text"
+    value={undefined}
+  />
+  <br />
+  Last Name:
+   
+  <input
+    name="lastName"
+    onChange={[Function]}
+    type="text"
+    value="user"
+  />
+  <br />
+  <input
+    onClick={[Function]}
+    type="submit"
+    value="Save"
+  />
+</form>
+`;
