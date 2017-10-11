@@ -7,7 +7,7 @@ import User from "./User";
 import ManageUser from "./ManageUser";
 import "./App.css";
 
-class App extends Component {
+export class App extends Component {
   constructor(props) {
     super(props);
 
