@@ -1,4 +1,4 @@
-import {SAVE_USER, DELETE_USER} from '../constants/actionTypes';
+import { SAVE_USER, DELETE_USER } from '../constants/actionTypes';
 import initialState from './initialState';
 
 // IMPORTANT: Note that with Redux, state should NEVER be changed.
@@ -12,10 +12,7 @@ export default function userReducer(state = initialState.users, action) {
   switch (action.type) {
     case SAVE_USER:
       if (action.user.id) {
-        users = [
-          ...state.filter( u => u.id !== action.user.id), 
-          action.user
-        ];
+        users = [...state.filter(u => u.id !== action.user.id), action.user];
       } else {
         action.user.id = Math.random();
         users = [...state, action.user];

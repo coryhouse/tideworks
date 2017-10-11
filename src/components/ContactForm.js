@@ -1,57 +1,59 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 
 class ContactForm extends Component {
-    state = {
-        name: '',
-        message: ''
+  state = {
+    name: '',
+    message: ''
+  };
+
+  static whatever = 4;
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      name: '',
+      message: ''
     };
 
-    static whatever = 4;
+    this.myVar = 14;
 
-    constructor(props) {
-        super(props);
-        this.state = {
-            name: '',
-            message: '' 
-        };
+    //this.handleChange = this.handleChange.bind(this);
+    // this.handleSubmit = this.handleSubmit.bind(this);
+  }
 
-        this.myVar = 14;
+  handleChange = event => {
+    this.setState({ [event.target.name]: event.target.value });
+  };
 
-        //this.handleChange = this.handleChange.bind(this);
-        // this.handleSubmit = this.handleSubmit.bind(this);
-    }
+  handleSubmit = event => {
+    event.preventDefault();
+    this.myVar++;
+    console.log(`name: ${this.state.name}`);
+    console.log(`message: ${this.state.message}`);
+  };
 
-    handleChange = (event) => {
-        this.setState({[event.target.name]: event.target.value});
-    }
-
-    handleSubmit = (event) => {
-        event.preventDefault();   
-        this.myVar++;     
-        console.log(`name: ${this.state.name}`);
-        console.log(`message: ${this.state.message}`);
-    }
-
-    render() {
-        return (
-            <form>
-                {this.myVar}
-                <label>Name</label>
-                <input 
-                    type="text" 
-                    name="name"
-                    onChange={this.handleChange} 
-                    value={this.state.name} />
-                <label>Message</label>
-                <input 
-                    type="text"
-                    name="message" 
-                    onChange={this.handleChange} 
-                    value={this.state.message} />                
-                <input type="submit" value="submit" onClick={this.handleSubmit} />
-            </form>
-        )
-    }
+  render() {
+    return (
+      <form>
+        {this.myVar}
+        <label>Name</label>
+        <input
+          type="text"
+          name="name"
+          onChange={this.handleChange}
+          value={this.state.name}
+        />
+        <label>Message</label>
+        <input
+          type="text"
+          name="message"
+          onChange={this.handleChange}
+          value={this.state.message}
+        />
+        <input type="submit" value="submit" onClick={this.handleSubmit} />
+      </form>
+    );
+  }
 }
 
 export default ContactForm;
