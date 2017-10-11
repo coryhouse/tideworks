@@ -2,6 +2,10 @@ import React from "react";
 import PropTypes from "prop-types";
 
 class HelloWorld extends React.Component {
+  add(x, y) {
+    return x + y;
+  }
+
   render() {
     return <div>{`Hello ${this.props.firstName} ${this.props.age}`}</div>;
   }
